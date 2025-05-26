@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración - DronExpress</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <header class="bg-blue-800 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Panel de Administración</h1>
+      <span class="text-sm">Administrador conectado</span>
+    </div>
+  </header>
+
+  <main class="container mx-auto my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <!-- Pedidos en curso -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-truck"></i> Pedidos en curso</h2>
+      <ul id="pedidos" class="text-sm text-gray-700 space-y-2">
+        <!-- Aquí se llenará desde PHP/JSON -->
+        <li>No hay pedidos cargados.</li>
+      </ul>
+    </section>
+
+    <!-- Drones disponibles -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-drone"></i> Drones disponibles</h2>
+      <ul id="dronesDisponibles" class="text-sm text-gray-700 space-y-2">
+        <li>No hay drones cargados.</li>
+      </ul>
+    </section>
+
+    <!-- Carga de drones -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-battery-half"></i> Carga de los drones</h2>
+      <ul id="cargaDrones" class="text-sm text-gray-700 space-y-2">
+        <li>No hay datos de carga.</li>
+      </ul>
+    </section>
+
+    <!-- Mantenimiento -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-tools"></i> Mantenimiento necesario</h2>
+      <ul id="mantenimiento" class="text-sm text-gray-700 space-y-2">
+        <li>No se requiere mantenimiento.</li>
+      </ul>
+    </section>
+
+    <!-- Historial de entregas -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-history"></i> Historial de entregas</h2>
+      <ul id="historialEntregas" class="text-sm text-gray-700 space-y-2">
+        <li>No hay entregas recientes.</li>
+      </ul>
+    </section>
+
+    <!-- Notificaciones -->
+    <section class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-bold mb-2"><i class="fas fa-bell"></i> Notificaciones</h2>
+      <ul id="notificaciones" class="text-sm text-gray-700 space-y-2">
+        <li>Todo está funcionando correctamente.</li>
+      </ul>
+    </section>
+
+  </main>
+
+</body>
+</html>
+

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DronExpress - Entregas con drones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .drone-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-green-500 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-drone-alt text-2xl"></i>
+                <h1 class="text-xl font-bold">DronExpress</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="bg-white text-green-500 px-3 py-1 rounded-full text-sm font-semibold hover:bg-gray-100 transition">
+                    <a href="iniciarsesion.html" class="text-green-500 hover:underline">Iniciar sesión </a>
+                </button>
+                <button  onclick="mostrarCarrito()" class="p-2 rounded-full hover:bg-green-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-400 to-green-600 text-white py-12">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h2 class="text-4xl font-bold mb-4">Entregas ultrarrápidas con drones</h2>
+                <p class="text-xl mb-6">Recibe tus pedidos en minutos, directamente desde el cielo.</p>
+                <div class="relative max-w-md">
+                    <input type="text" placeholder="¿Qué necesitas hoy?" 
+                           class="w-full py-3 px-4 pr-12 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300">
+                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <img src="https://cdnx.jumpseller.com/ultra-store/image/37577192/thumb/719/719?1689356267" alt="Drone" class="w-64 h-64 drone-animation">
+                    <div class="absolute -bottom-4 -right-4 bg-white text-green-500 p-2 rounded-full shadow-lg">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-8 container mx-auto px-4">
+        <h3 class="text-2xl font-bold mb-6 text-gray-800">Categorías populares</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+         <a href="Comidas.html">
+           <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer text-center">
+        <div class="bg-green-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-2">
+         <i class="fas fa-hamburger text-green-500 text-2xl"></i>
+         </div>
+         <p class="font-medium">Comida</p>
+       </div>
+       </a>
+        <a href="Farmacia.html">
+            <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer text-center">
+                <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-2">
+                    <i class="fas fa-pills text-blue-500 text-2xl"></i>
+                </div>
+                <p class="font-medium">Farmacia</p>
+            </div>
+            </a>
+            <a href="Electronicos.html">
+            <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer text-center">
+                <div class="bg-purple-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-2">
+                    <i class="fas fa-laptop text-purple-500 text-2xl"></i>
+                </div>
+                <p class="font-medium">Electrónica</p>
+            </div>
+            </a>
+            <a href="Domicilios.html">
+            <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer text-center">
+                <div class="bg-red-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-2">
+                    <i class="fas fa-box text-red-500 text-2xl"></i>
+                </div>
+                <p class="font-medium">Domicilios</p>
+            </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-8 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold mb-8 text-center text-gray-800">¿Cómo funciona?</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                    <div class="bg-green-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4 text-green-500">
+                        <span class="font-bold">1</span>
+                    </div>
+                    <h4 class="font-bold mb-2">Realiza tu pedido</h4>
+                    <p class="text-gray-600">Selecciona lo que necesitas entre miles de opciones disponibles.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                    <div class="bg-green-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4 text-green-500">
+                        <span class="font-bold">2</span>
+                    </div>
+                    <h4 class="font-bold mb-2">Un dron despega</h4>
+                    <p class="text-gray-600">Nuestros drones autónomos recogen tu pedido en minutos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                    <div class="bg-green-100 w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-4 text-green-500">
+                        <span class="font-bold">3</span>
+                    </div>
+                    <h4 class="font-bold mb-2">Entrega en tu ubicación</h4>
+                    <p class="text-gray-600">Recibe tu pedido de forma segura donde nos indiques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Restaurants/Stores -->
+    <section class="py-8 container mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800">Tiendas destacadas</h3>
+            <a href="#" class="text-green-500 font-medium hover:underline">Ver todas</a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
+                <div class="relative">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/640px-McDonald%27s_Golden_Arches.svg.png" 
+                         alt="McDonalds" class="w-200 mx-auto my-5 h-40 object-cover">
+                    <div class="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i> 4.8
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="font-bold mb-1">McDonald's</h4>
+                    <p class="text-gray-600 text-sm mb-2">Comida rápida</p>
+                    <div class="flex items-center text-sm">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded mr-2">15-20 min</span>
+                        <span class="text-gray-500">Envío $7.000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
+                <div class="relative">
+                    <img src="https://laboratoriosorel.com/wp-content/uploads/2018/10/logo_LaRebaja.png" 
+                         alt="Drogueria" class="w-full h-48 object-cover">
+                    <div class="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i> 4.6
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="font-bold mb-1">La Rebaja</h4>
+                    <p class="text-gray-600 text-sm mb-2">Farmacia</p>
+                    <div class="flex items-center text-sm">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded mr-2">10-15 min</span>
+                        <span class="text-gray-500">Envío gratis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
+                <div class="relative">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwhHOxdRke9WCs2kiFjoKNk7tn-SC7g_YJzA&s" 
+                         alt="Electrodomesticos" class="w-full h-48 object-cover">
+                    <div class="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i> 4.9
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="font-bold mb-1">Ktronix</h4>
+                    <p class="text-gray-600 text-sm mb-2">Electrodomesticos</p>
+                    <div class="flex items-center text-sm">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded mr-2">25-30 min</span>
+                        <span class="text-gray-500">Envío $12.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drone Tracking -->
+    <section class="py-12 bg-green-50">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-2 text-gray-800">Sigue tu dron en tiempo real</h3>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Con nuestra tecnología exclusiva, puedes ver exactamente dónde está tu pedido en todo momento.</p>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-xl overflow-hidden shadow-lg">
+                <div class="relative h-64 bg-gray-200 flex items-center justify-center">
+                    <div id="drone-marker" class="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                        <i class="fas fa-drone-alt text-3xl text-green-500"></i>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253400.94657526087!2d-73.30444031567515!3d7.08072874858649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e683e55f5bb02b9%3A0x399c8178e2f3f76d!2s%C3%81rea%20metropolitana%20de%20Bucaramanga%2C%20Santander!5e0!3m2!1ses!2sco!4v1748162949161!5m2!1ses!2sco" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-4 flex items-center">
+                        <i class="fas fa-drone-alt mr-2"></i> DronExpress
+                    </h4>
+                    <p class="text-gray-400">La forma más rápida y ecológica de recibir lo que necesitas.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Compañía</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Sobre nosotros</a></li>
+                        <li><a href="#" class="hover:text-white transition">Trabaja con nosotros</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Legal</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Términos y condiciones</a></li>
+                        <li><a href="#" class="hover:text-white transition">Política de privacidad</a></li>
+                        <li><a href="#" class="hover:text-white transition">Seguridad</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Contáctanos</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i> +57 3156287778</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> dronexpress@gmail.com</li>
+                        <li class="flex items-center space-x-4 mt-4">
+                            <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm">
+                <p>© 2025 DronExpress. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6">
+        <button class="bg-green-500 text-white w-14 h-14 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center text-xl pulse">
+            <i class="fas fa-drone-alt"></i>
+        </button>
+    </div>
+    
+    <!-- Carrito Modal -->
+
+    <div id="carritoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg w-96 max-h-[80vh] overflow-y-auto relative">
+    <h2 class="text-xl font-bold mb-4 text-center">🛒 Tu carrito</h2>
+    <ul id="listaCarrito" class="space-y-2"></ul>
+    <button onclick="cerrarCarrito()" class="absolute top-2 right-2 text-gray-500 hover:text-black">
+      <i class="fas fa-times"></i>
+    </button>
+    <p class="mt-4 text-right font-semibold">Total: <span id="totalCarrito">$0</span></p>
+    <button onclick="finalizarPedido()" class="mt-4 w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+      Finalizar pedido
+    </button>
+  </div>
+</div>
+
+    <script>
+        // Simple animation for the drone tracking
+        let position = 25;
+        let direction = 1;
+        const countdownElement = document.getElementById('countdown');
+        let minutes = 4;
+        let seconds = 32;
+
+        const animateDrone = () => {
+            position += direction;
+            if (position > 75 || position < 25) {
+                direction *= -1;
+            }
+            document.getElementById('drone-marker').style.left = `${position}%`;
+            
+            // Update countdown
+            if (seconds === 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            
+            requestAnimationFrame(animateDrone);
+        };
+
+        // Start animation after a delay
+        setTimeout(() => {
+            animateDrone();
+        }, 1000);
+    </script>
+    <script>
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem("carrito")) || [];
+}
+
+function guardarCarrito(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function agregarAlCarrito(producto, precio) {
+  let carrito = obtenerCarrito();
+  carrito.push({ nombre: producto, precio: precio });
+  guardarCarrito(carrito);
+  alert(`${producto} agregado al carrito.`);
+}
+
+function mostrarCarrito() {
+  const modal = document.getElementById("carritoModal");
+  const lista = document.getElementById("listaCarrito");
+  const totalTexto = document.getElementById("totalCarrito");
+  lista.innerHTML = "";
+
+  const carrito = obtenerCarrito();
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "<li class='text-center text-gray-500'>El carrito está vacío.</li>";
+    totalTexto.textContent = "$0";
+  } else {
+    let total = 0;
+    carrito.forEach((item, index) => {
+      total += item.precio;
+      const li = document.createElement("li");
+      li.className = "flex justify-between items-center border-b pb-1";
+      li.innerHTML = `
+        <span>${item.nombre} - $${item.precio.toLocaleString()}</span>
+        <button onclick="eliminarDelCarrito(${index})" class="text-red-500 hover:underline">Eliminar</button>
+      `;
+      lista.appendChild(li);
+    });
+    totalTexto.textContent = `$${total.toLocaleString()}`;
+  }
+
+  modal.classList.remove("hidden");
+}
+
+function cerrarCarrito() {
+  document.getElementById("carritoModal").classList.add("hidden");
+}
+
+function eliminarDelCarrito(index) {
+  let carrito = obtenerCarrito();
+  carrito.splice(index, 1);
+  guardarCarrito(carrito);
+  mostrarCarrito();
+}
+
+function finalizarPedido() {
+  let carrito = obtenerCarrito();
+  if (carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
+  }
+
+  window.location.href = "pagar.html";
+}
+</script>
+
+</body>
+</html>

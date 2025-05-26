@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pagar - DronExpress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans p-6">
+  <header class="bg-green-500 text-white shadow-md sticky top-0 z-50 mb-8 p-4 flex items-center space-x-4">
+    <i class="fas fa-drone-alt text-2xl"></i>
+    <h1 class="text-xl font-bold">DronExpress - Pago</h1>
+  </header>
+<body class="bg-gray-50 font-sans p-6">
+    <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-600">Formulario de Pago</h1>
+
+        <div class="mb-6">
+            <h2 class="font-semibold mb-2 text-lg">Resumen del pedido:</h2>
+            <ul id="resumenPedido" class="border rounded p-4 max-h-48 overflow-y-auto space-y-2 text-gray-700"></ul>
+        </div>
+
+        <form id="formPago" method="post" action="payu_redirect.php" class="space-y-4">
+            <input type="hidden" name="amount" id="amount" value="0" />
+            <input type="hidden" name="resumen" id="resumen" value="" />
+
+            <div>
+                <label for="nombre" class="block mb-1 font-semibold">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-green-500" />
+            </div>
+
+            <div>
+                <label for="email" class="block mb-1 font-semibold">Correo electrónico</label>
+                <input type="email" id="email" name="email" required
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-green-500" />
+            </div>
+
+            <div>
+                <label class="block mb-1 font-semibold">Total a pagar</label>
+                <p id="totalMostrar" class="text-lg font-bold text-green-600">$0.00</p>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Pagar ahora</button>
+        </form>
+    </div>
+
+    <script>
+        // Obtener carrito desde localStorage
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const resumenEl = document.getElementById('resumenPedido');
+        const resumenInput = document.getElementById('resumen');
+        const totalMostrar = document.getElementById('totalMostrar');
+        const amountInput = document.getElementById('amount');
+
+        if(carrito.length === 0){
+            resumenEl.innerHTML = "<li class='text-gray-500'>El carrito está vacío.</li>";
+            amountInput.value = "0";
+            totalMostrar.textContent = "$0.00";
+            resumenInput.value = "";
+        } else {
+            let total = 0;
+            let resumenTexto = "";
+
+            carrito.forEach(item => {
+                total += item.precio;
+                const li = document.createElement('li');
+                li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+                resumenEl.appendChild(li);
+
+                resumenTexto += `${item.nombre} - $${item.precio.toFixed(2)}\n`;
+            });
+
+            amountInput.value = total.toFixed(2);
+            totalMostrar.textContent = `$${total.toFixed(2)}`;
+            resumenInput.value = resumenTexto.trim();
+        }
+    </script>
+</body>
+</html>
+
+

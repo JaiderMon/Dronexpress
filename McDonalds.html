@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>McDonald's - DronExpress</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-yellow-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-red-600 text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-hamburger text-2xl"></i>
+        <h1 class="text-xl font-bold">McDonald's - DronExpress</h1>
+      </div>
+      <button onclick="mostrarCarrito()" class="p-2 rounded-full hover:bg-red-700 transition">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Título -->
+  <h2 class="text-3xl font-bold text-center text-red-600 my-10">Menú</h2>
+
+  <!-- Productos -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6">
+    <!-- Producto -->
+    <div class="bg-white rounded-xl shadow p-4 text-center">
+      <img src="https://mcdonalds.es/api/cms/images/Z4mecpbqstJ99jC5_Hero-bigmac.png?auto=format,compress" alt="Big Mac" class="mx-auto h-32 object-contain mb-2">
+      <h3 class="text-lg font-semibold">Big Mac</h3>
+      <p class="text-red-600 font-bold mb-2">$18.000</p>
+      <button onclick="agregarAlCarrito('Big Mac', 18000)" class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">
+        Agregar al carrito
+      </button>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4 text-center">
+      <img src="https://api-middleware-mcd.mcdonaldscupones.com/media/image/product$sundae-chocolate.png/200/200/original?country=co" alt="Sundae de Chocolate" class="mx-auto h-32 object-contain mb-2">
+      <h3 class="text-lg font-semibold">Sundae Chocolate</h3>
+      <p class="text-red-600 font-bold mb-2">$6.500</p>
+      <button onclick="agregarAlCarrito('Sundae Chocolate', 6500)" class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">
+        Agregar al carrito
+      </button>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4 text-center">
+      <img src="https://api-middleware-mcd.mcdonaldscupones.com/media/image/product$kPX1sAX5/200/200/original?country=co" alt="Papas Medianas" class="mx-auto h-32 object-contain mb-2">
+      <h3 class="text-lg font-semibold">Papas medianas</h3>
+      <p class="text-red-600 font-bold mb-2">$7.000</p>
+      <button onclick="agregarAlCarrito('Papas medianas', 7000)" class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+
+  <!-- Carrito Modal -->
+  <div id="carritoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg w-96 max-h-[80vh] overflow-y-auto relative">
+      <h2 class="text-xl font-bold mb-4 text-center">🛒 Tu carrito</h2>
+      <ul id="listaCarrito" class="space-y-2"></ul>
+      <button onclick="cerrarCarrito()" class="absolute top-2 right-2 text-gray-500 hover:text-black">
+        <i class="fas fa-times"></i>
+      </button>
+      <p class="mt-4 text-right font-semibold">Total: <span id="totalCarrito">$0</span></p>
+      <button onclick="finalizarPedido()" class="mt-4 w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+        Finalizar pedido
+      </button>
+    </div>
+  </div>
+
+<script>
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem("carrito")) || [];
+}
+
+function guardarCarrito(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function agregarAlCarrito(producto, precio) {
+  let carrito = obtenerCarrito();
+  carrito.push({ nombre: producto, precio: precio });
+  guardarCarrito(carrito);
+  alert(`${producto} agregado al carrito.`);
+}
+
+function mostrarCarrito() {
+  const modal = document.getElementById("carritoModal");
+  const lista = document.getElementById("listaCarrito");
+  const totalTexto = document.getElementById("totalCarrito");
+  lista.innerHTML = "";
+
+  const carrito = obtenerCarrito();
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "<li class='text-center text-gray-500'>El carrito está vacío.</li>";
+    totalTexto.textContent = "$0";
+  } else {
+    let total = 0;
+    carrito.forEach((item, index) => {
+      total += item.precio;
+      const li = document.createElement("li");
+      li.className = "flex justify-between items-center border-b pb-1";
+      li.innerHTML = `
+        <span>${item.nombre} - $${item.precio.toLocaleString()}</span>
+        <button onclick="eliminarDelCarrito(${index})" class="text-red-500 hover:underline">Eliminar</button>
+      `;
+      lista.appendChild(li);
+    });
+    totalTexto.textContent = `$${total.toLocaleString()}`;
+  }
+
+  modal.classList.remove("hidden");
+}
+
+function cerrarCarrito() {
+  document.getElementById("carritoModal").classList.add("hidden");
+}
+
+function eliminarDelCarrito(index) {
+  let carrito = obtenerCarrito();
+  carrito.splice(index, 1);
+  guardarCarrito(carrito);
+  mostrarCarrito();
+}
+
+function finalizarPedido() {
+  let carrito = obtenerCarrito();
+  if (carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
+  }
+
+  window.location.href = "pagar.html";
+}
+</script>
+
+</body>
+</html>
+    

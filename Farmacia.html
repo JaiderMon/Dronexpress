@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DronExpress - Entregas con drones</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .drone-animation {
+                animation: float 3s ease-in-out infinite;
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+            .pulse {
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 font-sans">
+        <!-- Header -->
+        <header class="bg-green-500 text-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center mb-20">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-drone-alt text-2xl"></i>
+                    <h1 class="text-xl font-bold">DronExpress</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                
+                    <button onclick="mostrarCarrito()" class="p-2 rounded-full hover:bg-green-600 transition">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+<body class="bg-gray-100 min-h-screen p-6">
+  <h1 class="text-3xl font-bold text-center text-green-600 mb-20">Droguerias</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    
+    
+    <a href="Productoslarebaja.html" class="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 text-center block">
+      <img src="https://laboratoriosorel.com/wp-content/uploads/2018/10/logo_LaRebaja.png" alt="La Rebaja" class="rounded-lg mb-4 w-full h-40 object-cover">
+      <h2 class="text-xl font-semibold text-gray-800">La Rebaja</h2>
+    </a>
+
+    
+    <a href="paguemenos.html" class="bg-white rounded-xl shadow-md hover:shadow-lg transition p-2 text-center block">
+      <img src="https://drogaspaguemenos.co/storage/logos/logo.png" alt="Pague Menos" class="rounded-lg mb-4 w-full h-10 object-cover my-20">
+      <h2 class="text-xl font-semibold text-gray-800 my-14">Pague Menos</h2>
+    </a>
+
+    
+    <a href="drogueriaalemana.html" class="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 text-center block">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsHoTIgD1j0mIbnpOyOWVpe38jeDmwXibG3g&s" alt="drogueria alemana" class="rounded-lg mb-4 w-full h-40 object-cover">
+      <h2 class="text-xl font-semibold text-gray-800">Drogueria Alemana</h2>
+    </a>
+
+  </div>
+  <!-- Carrito Modal -->
+<div id="carritoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg w-96 max-h-[80vh] overflow-y-auto relative">
+    <h2 class="text-xl font-bold mb-4 text-center">🛒 Tu carrito</h2>
+    <ul id="listaCarrito" class="space-y-2"></ul>
+    <button onclick="cerrarCarrito()" class="absolute top-2 right-2 text-gray-500 hover:text-black">
+      <i class="fas fa-times"></i>
+    </button>
+    <p class="mt-4 text-right font-semibold">Total: <span id="totalCarrito">$0</span></p>
+    <button onclick="finalizarPedido()" class="mt-4 w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+      Finalizar pedido
+    </button>
+  </div>
+</div>
+<script>
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem("carrito")) || [];
+}
+
+function guardarCarrito(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function agregarAlCarrito(producto, precio) {
+  let carrito = obtenerCarrito();
+  carrito.push({ nombre: producto, precio: precio });
+  guardarCarrito(carrito);
+  alert(`${producto} agregado al carrito.`);
+}
+
+function mostrarCarrito() {
+  const modal = document.getElementById("carritoModal");
+  const lista = document.getElementById("listaCarrito");
+  const totalTexto = document.getElementById("totalCarrito");
+  lista.innerHTML = "";
+
+  const carrito = obtenerCarrito();
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "<li class='text-center text-gray-500'>El carrito está vacío.</li>";
+    totalTexto.textContent = "$0";
+  } else {
+    let total = 0;
+    carrito.forEach((item, index) => {
+      total += item.price || item.precio;
+      const li = document.createElement("li");
+      li.className = "flex justify-between items-center border-b pb-1";
+      li.innerHTML = `
+        <span>${item.nombre} - $${item.precio.toLocaleString()}</span>
+        <button onclick="eliminarDelCarrito(${index})" class="text-red-500 hover:underline">Eliminar</button>
+      `;
+      lista.appendChild(li);
+    });
+    totalTexto.textContent = `$${total.toLocaleString()}`;
+  }
+
+  modal.classList.remove("hidden");
+}
+
+function cerrarCarrito() {
+  document.getElementById("carritoModal").classList.add("hidden");
+}
+
+function eliminarDelCarrito(index) {
+  let carrito = obtenerCarrito();
+  carrito.splice(index, 1);
+  guardarCarrito(carrito);
+  mostrarCarrito();
+}
+
+function finalizarPedido() {
+  let carrito = obtenerCarrito();
+  if (carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
+  }
+
+  window.location.href = "pagar.html";
+}
+</script>
+
+</body>
+</html>
